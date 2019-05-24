@@ -15,18 +15,11 @@ unzip vault_0.8.3_linux_amd64.zip -d ./target/
 ./target/vault auth-enable approle
 ./target/vault write auth/approle/role/sample policies=sample period=2m
 
-role_response=$(./target/vault read -format=json auth/approle/role/sample/role-id)
-echo "role_response $role_response"
-role_id=$(echo $role_response | ./jq -j '.data.role_id')
-echo "role_id: $role_id"
-export VAULT_APP_ROLE_ROLE_ID=$role_id
+token_response=$(./target/vault token-create -policy=sample -ttl=1m -use-limit=2 -format=json)
+echo "token_response: $token_response"
+token=$(echo $token_response | ./jq -j '.auth.client_token')
+echo "token: $token"
 
-secret_response=$(./target/vault write -force -format=json auth/approle/role/sample/secret-id)
-echo "secret_response: $secret_response"
-secret_id=$(echo $secret_response | ./jq -j '.data.secret_id')
-echo "secret_id: $secret_id"
-export VAULT_APP_ROLE_SECRET_ID=$secret_id
-
-unset VAULT_TOKEN
+export VAULT_TOKEN=$token
 
 mvn spring-boot:run
