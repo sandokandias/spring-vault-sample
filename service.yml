@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-vault-sample
+  labels:
+    app: spring-vault-sample
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: spring-vault-sample
+  selector:
+    app: spring-vault-sample

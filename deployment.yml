@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-vault-sample
+spec:
+  selector:
+      matchLabels:
+        app: spring-vault-sample
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: spring-vault-sample
+    spec:
+      containers:
+        - name: spring-vault-sample
+          image: spring-vault-sample:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          args:
+            - "SPRING_PROFILE_ACTIVE=vault-k8s"
+            - "SPRING_CLOUD_VAULT_URI=http://vault:8200"
+serviceaccount: vault-auth
+

@@ -1,0 +1,5 @@
+spring.cloud.vault:
+    uri: http://0.0.0.0:8200
+    authentication: APPROLE
+    app-role:
+        app-auth-path: approle

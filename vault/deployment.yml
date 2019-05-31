@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: vault
+  labels:
+    app: vault
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: vault
+    spec:
+      containers:
+      - name: vault
+        command: ["vault", "server", "-dev", "-config", "/vault/config/vault.hcl"]
+        image: "vault:0.8.3"
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          capabilities:
+            add:
+              - IPC_LOCK
+        volumeMounts:
+          - name: configurations
+            mountPath: /vault/config/vault.hcl
+            subPath: vault.hcl
+        env:
+          - name: VAULT_DEV_ROOT_TOKEN_ID
+            value: "87e7784b-d598-44fe-8962-c7c345a11eed"
+          - name: SKIP_SETCAP
+            value: "true"
+          - name: disable_mlock
+            value: "true"
+      volumes:
+        - name: configurations
+          configMap:
+            name: vault
