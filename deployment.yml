@@ -16,7 +16,7 @@ spec:
       containers:
         - name: spring-vault-sample
           image: sandokandias/spring-vault-sample:latest
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           ports:
             - name: http
               containerPort: 8080
