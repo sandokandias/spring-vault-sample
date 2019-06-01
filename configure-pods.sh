@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
 echo "Configuring vault POD..."
 
-kubectl delete configmap vault
-kubectl delete service vault
-kubectl delete service spring-vault-sample
-kubectl delete deployment vault
-kubectl delete deployment spring-vault-sample
+k3s kubectl delete configmap vault
+k3s kubectl delete service vault
+k3s kubectl delete service spring-vault-sample
+k3s kubectl delete deployment vault
+k3s kubectl delete deployment spring-vault-sample
 
-kubectl create configmap vault --from-file=vault/config.hcl
-kubectl apply -f  vault/service.yml
-kubectl apply -f  vault/deployment.yml
+k3s kubectl create configmap vault --from-file=vault/config.hcl
+k3s kubectl apply -f  vault/service.yml
+k3s kubectl apply -f  vault/deployment.yml
 
-kubectl get all | grep vault
+k3s kubectl get all | grep vault
 sleep 5
-kubectl get all | grep vault
+k3s kubectl get all | grep vault
 
-pod=$(kubectl get pods | grep vault | awk '{print $1}')
-kubectl port-forward $pod 8200:8200 >/dev/null 2>&1 < /dev/null &
+pod=$(k3s kubectl get pods | grep vault | awk '{print $1}')
+k3s kubectl port-forward $pod 8200:8200 >/dev/null 2>&1 < /dev/null &
 
 SA_JWT_TOKEN=$(cat /tmp/vault-k8s/sa_jwt_token)
 SA_CA_CRT=$(cat /tmp/vault-k8s/sa_ca_crt)
@@ -48,8 +48,8 @@ unzip vault_0.8.3_linux_amd64.zip -d ./target/
 
 echo "Configuring app POD..."
 
-kubectl apply -f service.yml
-kubectl apply -f deployment.yml
-kubectl get all | grep vault
+k3s kubectl apply -f service.yml
+k3s kubectl apply -f deployment.yml
+k3s kubectl get all | grep vault
 sleep 5
-kubectl get all | grep vault
+k3s kubectl get all | grep vault

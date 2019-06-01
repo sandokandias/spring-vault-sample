@@ -25,4 +25,4 @@ spec:
             - name: "SPRING_PROFILES_ACTIVE"
               value: "vault-k8s"
             - name: "SPRING_CLOUD_VAULT_URI"
-              value: "http://vault.default.svc.cluster.local:8200"
+              value: "http://vault:8200"
