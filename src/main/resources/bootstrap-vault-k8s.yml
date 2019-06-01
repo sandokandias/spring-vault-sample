@@ -1,0 +1,5 @@
+spring.cloud.vault:
+    authentication: KUBERNETES
+    kubernetes:
+        role: sample
+        service-account-token-file: /var/run/secrets/kubernetes.io/serviceaccount/token
