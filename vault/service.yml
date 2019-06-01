@@ -5,11 +5,10 @@ metadata:
   labels:
     app: vault
 spec:
-  type: ClusterIP
+  selector:
+    app: vault
   ports:
-    - port: 8200
-      targetPort: 8200
-      protocol: TCP
-      name: vault
+    - name: http
+      port: 8200  
   selector:
     app: vault

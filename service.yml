@@ -5,11 +5,10 @@ metadata:
   labels:
     app: spring-vault-sample
 spec:
-  type: ClusterIP
+  selector:
+    app: spring-vault-sample
   ports:
-    - port: 8080
-      targetPort: 8080
-      protocol: TCP
-      name: spring-vault-sample
+    - name: http
+      port: 8080
   selector:
     app: spring-vault-sample
