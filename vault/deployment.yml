@@ -2,8 +2,6 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: vault
-  labels:
-    app: vault
 spec:
   selector:
     matchLabels:
@@ -16,8 +14,10 @@ spec:
     spec:
       containers:
       - name: vault
-        command: ["vault", "server", "-dev", "-config", "/vault/config/vault.hcl"]
-        image: "vault:0.8.3"
+        image: vault:0.10.1
+        ports:
+        - containerPort: 8200
+          protocol: TCP
         imagePullPolicy: IfNotPresent
         securityContext:
           capabilities:

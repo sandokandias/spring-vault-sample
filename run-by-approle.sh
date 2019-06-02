@@ -10,7 +10,7 @@ unzip vault_0.8.3_linux_amd64.zip -d ./target/
 ./target/vault mount -path=app/warmup generic
 ./target/vault mount -path=app/secret generic
 
-./target/vault policy-write sample app-policy.hcl
+./target/vault policy-write sample approle-policy.hcl
 
 ./target/vault auth-enable approle
 ./target/vault write auth/approle/role/sample policies=sample period=1m

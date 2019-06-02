@@ -18,7 +18,7 @@ spec:
           image: sandokandias/spring-vault-sample:latest
           imagePullPolicy: IfNotPresent
           ports:
-            - name: http
+            - name: default
               containerPort: 8080
               protocol: TCP
           env:
